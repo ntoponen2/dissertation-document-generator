@@ -1,0 +1,52 @@
+{
+
+  "title": "Название работы",
+  "majors": ["Специальность 1", "Специальность 2"],
+  "claimedDegree": "доктор физико-математических наук",
+  "institution": {
+    "department": "Кафедра",
+    "faculty": "Факультет"
+  },
+  "candidate": {
+    "lastName": "Иванов",
+    "firstName": "Иван",
+    "secondName": "Иванович",
+    "birthDate": "2002-02-18",
+    "gender": "MALE",
+    "citizenship": "гражданин Российской федерации"
+  },
+  "graduation": {
+    "year": 2023,
+    "withHonours": true,
+    "university": "РУДН",
+    "major": "Математика и компьютерные науки"
+  },
+  "academicDegree": {
+    "year": 2027,
+    "institution": "РУДН",
+    "sciences": "физико-математических",
+    "topic": "Тема диссертации",
+    "majors": ["Специальность 1"]
+  },
+  "doctorate": {
+    "dateFrom": "2025-09-01",
+    "dateTo": "2028-07-01",
+    "department": "Кафедра",
+    "position": "Должность"
+  },
+  "candidateExam": {
+    "year": 2025,
+    "institution": "РУДН"
+  },
+  "supervisor": {
+    "lastName": "Семенов",
+    "firstName": "Семен",
+    "secondName": "Семенович",
+    "degree": "Доктор ф-м наук",
+    "title": "Ученое звание",
+    "position": "Должность",
+    "placeOfWork": "РУДН",
+    "gender": "MALE",
+    "birthDate": "1993-08-05"
+  }
+}

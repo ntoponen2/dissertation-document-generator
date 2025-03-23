@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: dissertation-document-generator
+  shell:
+    interactive:
+      enabled: true
+
+logging:
+  level:
+    ru.ntoponen.dissertationdocumentgenerator: debug
+
+dissertation:
+  document:
+    generator:
+      settings:
+        templates.folder: '/templates'
