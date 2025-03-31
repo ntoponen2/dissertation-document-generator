@@ -25,4 +25,6 @@ public class Supervisor extends Person {
      * Место работы
      */
     private String placeOfWork;
+
+    // TODO: сделать метод getShortSignature: сокращенная степень + Фамилия И.О.
 }

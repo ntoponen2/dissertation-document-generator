@@ -9,7 +9,7 @@ import static com.github.petrovich4j.Gender.Male;
 public enum Gender {
     MALE, FEMALE;
 
-    public com.github.petrovich4j.Gender getMorpherGender() {
+    public com.github.petrovich4j.Gender morpherGender() {
         return switch (this) {
             case MALE -> Male;
             case FEMALE -> Female;

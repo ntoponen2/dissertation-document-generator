@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class FieldValueExtractor {
@@ -32,7 +33,7 @@ public class FieldValueExtractor {
 
             if (fieldValue != null) {
                 if (isPrimitiveOrWrapper(fieldValue.getClass()) || fieldValue.getClass().equals(String.class)) {
-                    fieldValues.put(fullFieldName, fieldValue.toString());
+                    fieldValues.put(fullFieldName, Optional.of(fieldValue).map(Object::toString).orElse(""));
                 } else {
                     fieldValues.putAll(getFieldValuesUsingGetters(fieldValue, fullFieldName));
                 }

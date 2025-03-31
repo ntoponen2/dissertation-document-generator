@@ -3,15 +3,20 @@ package ru.ntoponen.dissertationdocumentgenerator.domain;
 import com.github.petrovich4j.Case;
 import com.github.petrovich4j.NameType;
 import lombok.Data;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 
+import static java.util.Objects.isNull;
 import static ru.ntoponen.dissertationdocumentgenerator.app.impl.StringCaseMorpher.morph;
 
 /**
  * Данные человека
  */
 @Data
+@Slf4j
+@Accessors(chain = true)
 public class Person {
     /**
      * Фамилия
@@ -43,7 +48,11 @@ public class Person {
     }
 
     public String getFullNameGenitive() {
-        com.github.petrovich4j.Gender morpherGender = this.gender.getMorpherGender();
+        if (isNull(this.gender)) {
+            log.warn("Cannot get genitive form of person {} because it's gender is null", this.lastName);
+            return null;
+        }
+        com.github.petrovich4j.Gender morpherGender = this.gender.morpherGender();
         String lastNameGenitive = morph(this.lastName, NameType.LastName, morpherGender, Case.Genitive);
         String firstNameGenitive = morph(this.firstName, NameType.FirstName, morpherGender, Case.Genitive);
         String secondNameGenitive = morph(this.secondName, NameType.PatronymicName, morpherGender, Case.Genitive);
@@ -51,7 +60,11 @@ public class Person {
     }
 
     public String getFullNameDative() {
-        com.github.petrovich4j.Gender morpherGender = this.gender.getMorpherGender();
+        if (isNull(this.gender)) {
+            log.warn("Cannot get dative form of person {} because it's gender is null", this.lastName);
+            return null;
+        }
+        com.github.petrovich4j.Gender morpherGender = this.gender.morpherGender();
         String lastNameDative = morph(this.lastName, NameType.LastName, morpherGender, Case.Dative);
         String firstNameDative = morph(this.firstName, NameType.FirstName, morpherGender, Case.Dative);
         String secondNameDative = morph(this.secondName, NameType.PatronymicName, morpherGender, Case.Dative);
@@ -59,6 +72,6 @@ public class Person {
     }
 
     public int getBirthYear() {
-        return this.birthDate.getYear();
+        return isNull(this.birthDate) ? 0 : this.birthDate.getYear();
     }
 }

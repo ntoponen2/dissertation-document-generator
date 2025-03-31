@@ -2,6 +2,7 @@ package ru.ntoponen.dissertationdocumentgenerator.domain.doctoral;
 
 import lombok.Data;
 import ru.ntoponen.dissertationdocumentgenerator.domain.CandidateExam;
+import ru.ntoponen.dissertationdocumentgenerator.domain.DissertationBoard;
 import ru.ntoponen.dissertationdocumentgenerator.domain.Graduation;
 import ru.ntoponen.dissertationdocumentgenerator.domain.Institution;
 import ru.ntoponen.dissertationdocumentgenerator.domain.Person;
@@ -54,6 +55,10 @@ public class DoctoralData {
      * Научный руководитель
      */
     private Supervisor supervisor;
+    /**
+     * Диссертационный совет
+     */
+    private DissertationBoard dissertationBoard;
 
     public String getMajors() {
         return String.join(", ", majors);

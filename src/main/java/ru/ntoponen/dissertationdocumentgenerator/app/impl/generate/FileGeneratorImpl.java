@@ -16,6 +16,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.ntoponen.dissertationdocumentgenerator.app.api.generate.FileGenerator;
+import ru.ntoponen.dissertationdocumentgenerator.app.api.parser.DissertationBoardGetter;
 import ru.ntoponen.dissertationdocumentgenerator.app.impl.FieldValueExtractor;
 import ru.ntoponen.dissertationdocumentgenerator.domain.doctoral.DoctoralData;
 
@@ -47,9 +48,11 @@ public class FileGeneratorImpl implements FileGenerator {
     private String templatesFolder;
 
     private final FieldValueExtractor fieldValueExtractor;
+    private final DissertationBoardGetter dissertationBoardGetter;
 
     @Override
     public void generateDoctoral(DoctoralData data) throws IllegalAccessException, InvocationTargetException {
+        data.setDissertationBoard(dissertationBoardGetter.getDissertationBoard());
         Map<String, String> dataMap = fieldValueExtractor.getFieldValuesUsingGetters(data, null);
 
         try (FileOutputStream zipFileOutputStream = new FileOutputStream("out.zip");
@@ -98,15 +101,16 @@ public class FileGeneratorImpl implements FileGenerator {
     }
 
     private void replaceStringInDoc(String templateString, Map<String, String> dataMap, Range range, String fileName) {
-        log.debug("Replacing {} in {}", templateString, fileName);
+        String replacement;
         if (templateString.contains("?")) {
-            String replacement = getReplacementFromTernary(templateString, dataMap);
-            log.debug("Replacing ternary {} with {} in {}", templateString, replacement, fileName);
-            range.replaceText(templateString, replacement);
+            replacement = getReplacementFromTernary(templateString, dataMap);
+            log.debug("Replacing doc ternary {} with {} in {}", templateString, replacement, fileName);
         } else {
             String fieldName = templateString.substring(2, templateString.indexOf("}"));
-            range.replaceText(templateString, dataMap.getOrDefault(fieldName, ""));
+            replacement = dataMap.getOrDefault(fieldName, "");
+            log.debug("Replacing doc {} with {} in {}", templateString, replacement, fileName);
         }
+        range.replaceText(templateString, replacement);
     }
 
     private void addDocFileToArchive(HWPFDocument doc, ZipOutputStream zipOutputStream, String fileName) {
@@ -195,14 +199,14 @@ public class FileGeneratorImpl implements FileGenerator {
     }
 
     private String getReplaceStringInDocx(String templateString, Map<String, String> dataMap, String fileName) {
-        String replacement = "";
+        String replacement;
         if (templateString.contains("?")) {
             replacement = getReplacementFromTernary(templateString, dataMap);
-            log.debug("Replacing ternary {} with {} in {}", templateString, replacement, fileName);
+            log.debug("Replacing docx ternary {} with {} in {}", templateString, replacement, fileName);
         } else {
             String fieldName = templateString.substring(2, templateString.indexOf("}"));
             replacement = dataMap.getOrDefault(fieldName, "");
-            log.debug("Replacing {} with {} in {}", templateString, replacement, fileName);
+            log.debug("Replacing docx {} with {} in {}", templateString, replacement, fileName);
         }
         return replacement;
     }
