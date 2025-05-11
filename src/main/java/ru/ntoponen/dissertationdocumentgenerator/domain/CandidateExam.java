@@ -10,9 +10,9 @@ public class CandidateExam {
     /**
      * Год
      */
-    private final int year;
+    private int year;
     /**
      * Учреждение
      */
-    private final String institution;
+    private String institution;
 }

@@ -16,6 +16,10 @@ import java.util.Optional;
 public class FieldValueExtractor {
     public Map<String, String> getFieldValuesUsingGetters(Object obj, String parentPrefix)
         throws InvocationTargetException, IllegalAccessException {
+        if (obj == null) {
+            return null;
+        }
+
         Map<String, String> fieldValues = new HashMap<>();
         Class<?> clazz = obj.getClass();
 
