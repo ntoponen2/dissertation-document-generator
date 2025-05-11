@@ -7,6 +7,9 @@ import lombok.Data;
  */
 @Data
 public class AcademicDegree {
+    /**
+     * Год защиты
+     */
     private Integer year;
     /**
      * Наименование организации, где защищалась степень
